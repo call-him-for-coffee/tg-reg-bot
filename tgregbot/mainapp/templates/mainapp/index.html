@@ -2,9 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Message page</title>
+    <title>главная страница</title>
 </head>
 <body>
-    <div id="message">Ваше сообщение: "{{message}}"</div>
+    <div class="center bordered">
+        <a href="https://t.me/callhim4coffee_reg_bot" class="button">войти через телеграм</a>
+    </div>
 </body>
 </html>
+
+
+<style>
+body {
+    background-color: rgb(198, 220, 210);
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+* {
+    font-weight: lighter;
+    font-size: 30px;
+    font-family: 'Consolas', Consolas, monospace;
+    color: rgb(33, 7, 5);
+}
+
+.bordered {
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    border: 2px dotted rgb(33, 7, 5);
+    padding: 30px;
+  }
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    color: initial;
+}
+</style>

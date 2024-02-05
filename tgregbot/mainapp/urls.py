@@ -2,7 +2,6 @@ from django.urls import include, path
 from . import views
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("message/", views.message, name="message"),
-    path("start/", views.start, name="start")
+    path("", views.start, name="start"),
+    path("login/<int:chat_id>/", views.login, name="login")
 ]

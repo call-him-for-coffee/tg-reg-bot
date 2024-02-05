@@ -9,5 +9,5 @@ send_markup = telebot.types.ReplyKeyboardMarkup(
 ).row(send_contact_button)
 
 # ссылка для входа
-log_button = InlineKeyboardButton('войти', callback_data='log_btn', url='http://127.0.0.1:8000/message/')
+log_button = InlineKeyboardButton('войти', callback_data='log_btn', url='http://127.0.0.1:8000/start/')
 login_markup = telebot.types.InlineKeyboardMarkup().row(log_button)

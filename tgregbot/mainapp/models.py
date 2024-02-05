@@ -1,9 +1,11 @@
 from django.db import models
 
 
-class User(models.Model):
+class MyUser(models.Model):
+    username = models.CharField(max_length=128)
     chat_id = models.CharField(max_length=120, unique=True)
-    phone_number = models.CharField(max_length=12)
+    phone_number = models.CharField(max_length=12, unique=True)
 
     def __str__(self):
-        return str(self.phone_number)
+        return str(self.username)
+

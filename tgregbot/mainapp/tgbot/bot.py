@@ -1,9 +1,12 @@
 import telebot
+from telebot.types import InlineKeyboardButton
 from .. import models
 from . import keyboard as kb
 
+TOKEN = "5996914631:AAEsGlNv2tG23PsX9THjkT_09Rv3ZRFEEm0"
+bot = telebot.TeleBot(TOKEN, parse_mode=None)
 
-bot = telebot.TeleBot("5996914631:AAEsGlNv2tG23PsX9THjkT_09Rv3ZRFEEm0", parse_mode=None)
+MethodGetUpdates = 'https://api.telegram.org/bot{token}/getUpdates'.format(token=TOKEN)
 
 
 def is_sender(message_id, sender_id):
@@ -14,10 +17,10 @@ def is_sender(message_id, sender_id):
     
 def already_exists(id):
     try:
-        user = models.User.objects.get(chat_id = id)
+        user = models.MyUser.objects.get(chat_id = id)
         print (user)
         return True
-    except models.User.DoesNotExist:
+    except models.MyUser.DoesNotExist:
         return False
     
 
@@ -30,14 +33,22 @@ def handle_start_help(message):
 @bot.message_handler(content_types=["contact"])
 def handle_contact(message):
     if is_sender(message.chat.id, message.contact.user_id):
-        if already_exists(message.chat.id):
+        if already_exists(message.contact.user_id):
             text = "вы уже зарегистрированы! для входа на сайт перейдите по ссылке:"
         else:
-            user = models.User(chat_id=message.chat.id, phone_number=message.contact.phone_number)
+            user = models.MyUser(
+                username = " ".join(message.contact.first_name, message.contact.last_name) \
+                    if message.contact.last_name != None \
+                    else message.contact.first_name,
+                chat_id=message.chat.id, 
+                phone_number=message.contact.phone_number
+            )
             user.save()
             text = "вы успешно зарегистрированы. для входа на сайт перейдите по ссылке:"
-        markup = kb.login_markup    
-    else:
+        
+        log_button = InlineKeyboardButton('войти', callback_data='log_btn', url=f'http://127.0.0.1:8000/login/{message.chat.id}/')
+        markup = telebot.types.InlineKeyboardMarkup().row(log_button)
+    else: 
         text = "вы не можете зарегистрироваться или войти за другого человека ;)"
         markup = kb.ReplyKeyboardRemove()
 
@@ -52,3 +63,4 @@ def default_response(message):
 
 def run():
     bot.infinity_polling()
+    
