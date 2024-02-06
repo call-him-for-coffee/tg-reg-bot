@@ -3,10 +3,8 @@ from telebot.types import InlineKeyboardButton
 from .. import models
 from . import keyboard as kb
 
-TOKEN = "5996914631:AAEsGlNv2tG23PsX9THjkT_09Rv3ZRFEEm0"
+TOKEN = "INSERT YOUR TOKEN HERE"
 bot = telebot.TeleBot(TOKEN, parse_mode=None)
-
-MethodGetUpdates = 'https://api.telegram.org/bot{token}/getUpdates'.format(token=TOKEN)
 
 
 def is_sender(message_id, sender_id):
